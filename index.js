@@ -39,7 +39,7 @@ function doesStrikeHit(attack, ac) {
  * @returns {boolean} whether the strike is a critical hit
  */
 function doesStrikeCrit(attack, ac) {
-  // TODO
+  return attack - ac >= 10;
 }
 
 /**
@@ -51,7 +51,11 @@ function doesStrikeCrit(attack, ac) {
  * @returns {number} total hit points after healing
  */
 function heal(maxHp, currentHp, healAmount) {
-  // TODO
+  const total = currentHp + healAmount;
+  if (total > maxHp) {
+    return maxHp;
+  }
+  return total;
 }
 
 /**
@@ -71,7 +75,21 @@ function heal(maxHp, currentHp, healAmount) {
  * @returns {number} the character's proficiency bonus
  */
 function getProficiencyBonus(level, rank) {
-  // TODO
+  if (rank === "untrained") {
+    return 0;
+  }
+  if (rank === "trained") {
+    return level + 2;
+  }
+  if (rank === "expert") {
+    return level + 4;
+  }
+  if (rank === "master") {
+    return level + 6;
+  }
+  if (rank === "legendary") {
+    return level + 8;
+  }
 }
 
 /**
@@ -85,7 +103,13 @@ function getProficiencyBonus(level, rank) {
  * @returns {number} the cover bonus to AC
  */
 function getCoverBonus(behindObstacle, takingCover) {
-  // TODO
+  if (!behindObstacle) {
+    return 0;
+  }
+  if (takingCover) {
+    return 4;
+  }
+  return 2;
 }
 
 /**
@@ -101,7 +125,14 @@ function getCoverBonus(behindObstacle, takingCover) {
  * @returns {number} the creature's remaining HP after taking damage
  */
 function getRemainingHp(maxHp, currentHp, damage) {
-  // TODO
+  if (damage >= maxHp * 2) {
+    return -1;
+  }
+  const remaining = currentHp - damage;
+  if (remaining <= 0) {
+    return 0;
+  }
+  return;
 }
 
 /**
